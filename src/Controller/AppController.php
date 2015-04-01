@@ -15,6 +15,8 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\ORM\TableRegistry;
+use Cake\Event\Event;
 
 /**
  * Application Controller
@@ -37,5 +39,52 @@ class AppController extends Controller
     public function initialize()
     {
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'authorize' => ['Controller'], // Added this line
+            'loginRedirect' => [
+                'controller' => 'Articles',
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Pages',
+                'action' => 'display',
+                'home'
+            ]
+        ]);
+
+        // Load Global Sideposts
+        $sideposts = TableRegistry::get('Sideposts');
+        $sidepostquery = $sideposts->find('all');
+        $sidepostresults = $sidepostquery->all();
+        $sidepostdata = $sidepostresults->toArray();
+        $this->set('sidepostdata', $sidepostdata); 
+
     }
+
+    /**
+     * Set authorization
+     *
+     * @return void
+     */
+    public function isAuthorized($user)
+    {
+        // Admin can access every action
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+    
+        // Default deny
+        return false;
+    }
+
+    /**
+     * Before filter, control public methods here
+     *
+     * @return void
+     */
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['index', 'view', 'display']);
+    }
+
 }

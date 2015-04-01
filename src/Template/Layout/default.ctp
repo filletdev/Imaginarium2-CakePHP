@@ -12,48 +12,50 @@
  * @since         0.10.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$siteDescription = 'Imaginarium';
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
-    <?= $this->Html->meta('icon') ?>
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title> <?= $siteDescription ?>: <?= $this->fetch('title') ?> </title> 
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?= $this->Html->meta('icon') ?>
+        <?= $this->fetch('meta') ?>
 
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
+        <?= $this->Html->css('normalize.css') ?>
 
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
-</head>
-<body>
-    <header>
-        <div class="header-title">
-            <span><?= $this->fetch('title') ?></span>
-        </div>
-        <div class="header-help">
-            <span><a target="_blank" href="http://book.cakephp.org/3.0/">Documentation</a></span>
-            <span><a target="_blank" href="http://api.cakephp.org/3.0/">API</a></span>
-        </div>
-    </header>
-    <div id="container">
+        <?= $this->Html->css('main.css') ?>
 
-        <div id="content">
-            <?= $this->Flash->render() ?>
+        <?= $this->Html->css('base.css') ?>
 
-            <div class="row">
-                <?= $this->fetch('content') ?>
-            </div>
-        </div>
-        <footer>
-        </footer>
-    </div>
-</body>
+        <?= $this->Html->css('cake.css') ?>
+
+        <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    <body>
+<?= $this->element('header'); ?>
+
+<?= $this->fetch('content') ?>
+
+<?= $this->element('footer'); ?>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+        <?= $this->fetch('script') ?>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+        </script>
+    </body>
 </html>
